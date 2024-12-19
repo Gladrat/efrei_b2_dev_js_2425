@@ -1,6 +1,6 @@
-"use strict";
+import { render, createElement } from "./lib/core.js";
 
-const hello = "Pizza world";
+const title = "Pizza world";
 
 let pizzas = [
   "Pizza reine",
@@ -10,23 +10,22 @@ let pizzas = [
   // "Pizza spéciale"
 ];
 
-pizzas = pizzas
-  .map((p) => `<li data-name='${p}'>` + p + " <button class='commander'>+</button></li>")
-  .join("\n");
-
-console.log(pizzas);
-
+const titleTemplate = `<h1>Hello, ${title}</h1>`;
 const root = document.querySelector("#root");
-root.innerHTML = `
-<h1>Hello ${hello} !</h1>
-<h2>Liste des pizzas :</h2>
-<ul>${pizzas}
-</ul>
-`;
 
-document.querySelectorAll("button.commander").forEach(button => {
-  button.addEventListener("click", (event) => {
-    console.log(event.target.parentElement.getAttribute("data-name"));
-    
-  })
-});
+render(titleTemplate, root);
+
+const app = createElement(
+  "app",
+  createElement("h1", "Hello " + title),
+  createElement("h2", "Notre carte des pizzas :"),
+  createElement(
+    "ul",
+    createElement("li", "Pizza reine", createElement("button", "+")),
+    createElement("li", "Pizza 4 fromages", createElement("button", "+")),
+    createElement("li", "Pizza chorizo", createElement("button", "+")),
+    createElement("li", "Pizza montagnarde", createElement("button", "+"))
+  )
+);
+
+console.log(JSON.stringify(app));

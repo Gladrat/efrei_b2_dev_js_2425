@@ -2,6 +2,8 @@
 
 let cart = [];
 
+// UI
+
 const nav = document.querySelector("nav");
 
 const pages = document.querySelectorAll(".pages");
@@ -20,24 +22,11 @@ pages.forEach((p) => {
   nav.append(" ");
 });
 
-
 function changePage(page) {
   const pages = document.querySelectorAll(".pages");
   pages.forEach((p) => p.classList.add("hidden"));
 
   document.querySelector(`#${page}`).classList.remove("hidden");
-}
-
-function addToCart(product) {
-  cart.push(product);
-  console.log("Add to cart:", product);
-  console.log("Cart:", cart);
-
-  updateCart()
-}
-
-function removeFromCart(product) {
-  updateCart()
 }
 
 document.querySelectorAll("button").forEach((button) => {
@@ -57,5 +46,21 @@ function updateCart() {
     cartHTML.append(li);
   })
 }
+
+// METIER
+
+function addToCart(product) {
+  cart.push(product);
+  console.log("Add to cart:", product);
+  console.log("Cart:", cart);
+
+  updateCart()
+}
+
+function removeFromCart(product) {
+  updateCart()
+}
+
+// "MAIN"
 
 changePage("product01");

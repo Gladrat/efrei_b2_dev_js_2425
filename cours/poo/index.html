@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // objets littéraux
+      const geoffroy = {
+        age: 39,
+        email: "geoffroy@gl-conseil.dev",
+        students: [
+          { firstName: "Mathis", email: "mathis@efrei.fr" },
+          { firstName: "Yann", email: "yann@efrei.fr" },
+        ],
+        hello() {},
+      };
+      const anthony = {
+        age: 47,
+        email: "anthony@avalone.fr",
+        students: [
+          { firstName: "Mathis", email: "mathis@efrei.fr" },
+          { firstName: "Yann", email: "yann@efrei.fr" },
+        ],
+        hello() {},
+      };
+
+      // Classes
+      // Objets
+      class Trainer {
+        constructor(email) {
+          this.email = email;
+        }
+
+        hello() {
+          console.log(`Hello my email is: ${this.email}`);
+        }
+      }
+
+      // Trainer
+      const sylvain = new Trainer("sylvain@efrei.fr");
+      sylvain.hello();
+
+      const antho = new Trainer("anthony@avalone.fr");
+
+      console.log(typeof geoffroy);
+      console.log(typeof sylvain);
+
+      const config = {
+        host: "127.0.0.1",
+        user: "root",
+        password: "root",
+        port: 3306,
+      };
+
+      const j = JSON.stringify(config);
+      console.log(typeof j);
+      console.log(j);
+    </script>
+  </body>
+</html>

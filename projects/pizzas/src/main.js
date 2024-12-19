@@ -24,4 +24,4 @@ const app = createElement(
 const root = document.querySelector("#root");
 render(app, root);
 
-console.log(app);
+// console.log(app);

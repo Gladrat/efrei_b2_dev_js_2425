@@ -6,6 +6,9 @@ export function createElement(tag, ...children) {
 }
 
 export function render(vNode, container) {
+  console.log(vNode.tag);
+  console.log(vNode.children);  
+
   if (typeof vNode === "string") {
     container.appendChild(document.createTextNode(vNode));
     return;

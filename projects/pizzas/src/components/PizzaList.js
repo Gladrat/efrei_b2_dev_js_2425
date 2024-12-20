@@ -8,31 +8,35 @@ let pizzas = [
   { name: "Pizza spéciale", stock: 10 },
 ];
 
-export const PizzaList = createElement(
-  "ul",
-  null,
-  ...pizzas.map((p) =>
-    createElement(
-      "li",
-      {
-        "data-name": p.name,
-        "data-stock": p.stock,
-        onclick: (event) => {
-          console.log(event.target.getAttribute("data-stock"));
-        }
-      },
-      p.name,
-      " ",
+export function PizzaList({ onPizzaSelection, renderApp }) {
+  return createElement(
+    "ul",
+    null,
+    ...pizzas.map((p) =>
       createElement(
-        "button",
+        "li",
         {
-          class: "command-button",
-          onclick: (event) => {
-            console.log(event.target.parentElement.getAttribute("data-name"));
-          },
+          "data-name": p.name,
+          "data-stock": p.stock,
+          // onclick: (event) => {
+          //   console.log(event.target.getAttribute("data-stock"));
+          // }
         },
-        "+"
+        p.name,
+        " ",
+        createElement(
+          "button",
+          {
+            class: "command-button",
+            onclick: (event) => {
+              console.log(event.target.parentElement.getAttribute("data-name"));
+              onPizzaSelection();
+              renderApp()
+            },
+          },
+          "+"
+        )
       )
     )
-  )
-);
+  );
+}

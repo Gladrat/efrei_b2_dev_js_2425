@@ -33,4 +33,6 @@ export function render(vNode, container) {
   vNode.children.forEach((child) => render(child, element));
 
   container.appendChild(element);
+  console.log("append");
+  
 }

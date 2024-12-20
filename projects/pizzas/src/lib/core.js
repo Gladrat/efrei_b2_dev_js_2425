@@ -18,9 +18,16 @@ export function render(vNode, container) {
   const element = document.createElement(vNode.tag);
 
   if (vNode.props) {
-    Object.keys(vNode.props).forEach(key => {
-      element.setAttribute(key, vNode.props[key]);
-    })
+    Object.keys(vNode.props).forEach((key) => {
+      if (typeof vNode.props[key] === "function" && key.startsWith("on")) {
+        const event = key.slice(2).toLowerCase();
+        const callbackFn = vNode.props[key];
+
+        element.addEventListener(event, callbackFn);
+      } else {
+        element.setAttribute(key, vNode.props[key]);
+      }
+    });
   }
 
   vNode.children.forEach((child) => render(child, element));

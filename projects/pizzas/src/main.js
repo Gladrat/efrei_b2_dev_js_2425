@@ -9,7 +9,7 @@ let stock = true;
 
 const state = reactive(
   {
-    pizzaCount: 0,
+    // pizzaCount: 0, // Remplacé par un calcul de pizzaSelection.length (ligne 63)
     pizzaSelection: [],
     total: 0,
   },
@@ -40,6 +40,10 @@ function addPizzaToSelection(pizza) {
   state.pizzaSelection = [...state.pizzaSelection, pizza];
 }
 
+function removePizzaFromSelection(index) {
+  state.pizzaSelection = state.pizzaSelection.filter((_, i) => i !== index);
+}
+
 function renderApp() {
   const app = createElement(
     "app",
@@ -56,8 +60,16 @@ function renderApp() {
         })
       : createElement("p", null, "Plus de stock..."),
     createElement("h2", null, `Montant ${state.total} €`),
-    createElement("p", null, `Votre sélection (${state.pizzaCount}) :`),
-    PizzaSelection({ pizzaSelection: state.pizzaSelection }),
+    createElement(
+      "p",
+      null,
+      `Votre sélection (${state.pizzaSelection.length}) :`
+    ),
+    PizzaSelection({
+      pizzaSelection: state.pizzaSelection,
+      decreaseTotal,
+      removePizzaFromSelection,
+    }),
     Navigation
   );
 
@@ -67,8 +79,3 @@ function renderApp() {
 }
 
 renderApp();
-
-// Bouton supprimer sur la selection
-// Afficher dans la console la pizza à supprimer
-
-// Gérer le total €

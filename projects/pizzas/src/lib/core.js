@@ -1,3 +1,16 @@
+export function reactive(state, callbackFn) {
+  return new Proxy(state, {
+    set(target, key, value) {
+      target[key] = value;
+      
+      callbackFn();
+      console.log("App a été re-render - source", key);
+
+      return true;
+    }
+  })
+}
+
 export function createElement(tag, props = {}, ...children) {
   return {
     tag,
@@ -32,7 +45,5 @@ export function render(vNode, container) {
 
   vNode.children.forEach((child) => render(child, element));
 
-  container.appendChild(element);
-  console.log("append");
-  
+  container.appendChild(element);  
 }

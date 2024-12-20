@@ -1,15 +1,23 @@
-import { render, createElement } from "./lib/core.js";
+import { reactive, render, createElement } from "./lib/core.js";
 
 import { Navigation } from "./components/Navigation.js";
 import { PizzaList } from "./components/PizzaList.js";
 
 const title = "Pizza world";
-let pizzaCount = 0;
+// let pizzaCount = 0;
 let stock = true;
 
+const state = reactive({
+  pizzaCount: 0,
+  pizzaSelection: []
+}, renderApp)
+
 function addPizzaCount() {
-  pizzaCount++;
-  console.log("Nb de pizzas :", pizzaCount);
+  state.pizzaCount++;
+}
+
+function addPizzaToSelection(pizza) {
+  state.pizzaSelection = [...state.pizzaSelection, pizza]
 }
 
 function renderApp() {
@@ -21,11 +29,13 @@ function renderApp() {
     createElement("h2", null, "Notre carte des pizzas :"),
     stock
       ? PizzaList({
-          onPizzaSelection: addPizzaCount,
-          renderApp: renderApp,
+          onPizzaSelection: addPizzaCount, addPizzaToSelection
         })
       : createElement("p", null, "Plus de stock..."),
-    createElement("p", null, `Votre sélection (${pizzaCount}) :`),
+    createElement("p", null, `Votre sélection (${state.pizzaCount}) :`),
+    createElement("ul", null,
+      ...state.pizzaSelection.map(p => createElement("li", null, p))
+    ),
     Navigation
   );
 

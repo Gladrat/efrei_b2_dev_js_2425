@@ -8,7 +8,7 @@ let pizzas = [
   { name: "Pizza spéciale", stock: 10 },
 ];
 
-export function PizzaList({ onPizzaSelection, renderApp }) {
+export function PizzaList({ onPizzaSelection, addPizzaToSelection }) {
   return createElement(
     "ul",
     null,
@@ -18,9 +18,6 @@ export function PizzaList({ onPizzaSelection, renderApp }) {
         {
           "data-name": p.name,
           "data-stock": p.stock,
-          // onclick: (event) => {
-          //   console.log(event.target.getAttribute("data-stock"));
-          // }
         },
         p.name,
         " ",
@@ -29,9 +26,8 @@ export function PizzaList({ onPizzaSelection, renderApp }) {
           {
             class: "command-button",
             onclick: (event) => {
-              console.log(event.target.parentElement.getAttribute("data-name"));
               onPizzaSelection();
-              renderApp()
+              addPizzaToSelection(p.name);
             },
           },
           "+"

@@ -1,14 +1,11 @@
 import { createElement } from "../lib/core.js";
 
-let pizzas = [
-  { name: "Pizza reine", stock: 8 },
-  { name: "Pizza 4 fromages", stock: 25 },
-  { name: "Pizza chorizo", stock: 30 },
-  { name: "Pizza montagnarde", stock: 12 },
-  { name: "Pizza spéciale", stock: 10 },
-];
-
-export function PizzaList({ onPizzaSelection, addPizzaToSelection }) {
+export function PizzaList({
+  pizzas,
+  onPizzaSelection,
+  addPizzaToSelection,
+  increaseTotal,
+}) {
   return createElement(
     "ul",
     null,
@@ -21,13 +18,16 @@ export function PizzaList({ onPizzaSelection, addPizzaToSelection }) {
         },
         p.name,
         " ",
+        p.price + " €",
+        " ",
         createElement(
           "button",
           {
             class: "command-button",
             onclick: (event) => {
               onPizzaSelection();
-              addPizzaToSelection(p.name);
+              addPizzaToSelection(p);
+              increaseTotal(p.price);
             },
           },
           "+"
